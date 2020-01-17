@@ -1,7 +1,7 @@
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
-    sprite.destroy(effects.fire, 100)
-    info.changeLifeBy(1)
+    sprite.destroy(effects.halo, 100)
     otherSprite.destroy()
+    info.changeScoreBy(1)
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     dart = sprites.createProjectileFromSprite(img`
@@ -19,9 +19,8 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-. . . . . . . . . . . 7 7 7 7 7 7 7 7 7 . . . . . . . . . . . . 
-. . . . . . . . . . 7 9 9 9 9 9 9 9 9 9 7 . . . . . . . . . . . 
-. . . . . . . . . . . 7 7 7 7 7 7 7 7 7 . . . . . . . . . . . . 
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+. . . . . . . 2 2 2 2 2 2 2 2 2 2 2 . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -37,7 +36,8 @@ controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-`, spaceplane, 200, 0)
+. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+`, xwing, 200, 0)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy()
@@ -45,8 +45,8 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
 })
 let boogey: Sprite = null
 let dart: Sprite = null
-let spaceplane: Sprite = null
-spaceplane = sprites.create(img`
+let xwing: Sprite = null
+xwing = sprites.create(img`
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -93,9 +93,10 @@ spaceplane = sprites.create(img`
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 `, SpriteKind.Player)
-spaceplane.setFlag(SpriteFlag.StayInScreen, true)
-info.setLife(4)
-controller.moveSprite(spaceplane, 200, 200)
+xwing.setFlag(SpriteFlag.StayInScreen, true)
+info.setLife(5)
+controller.moveSprite(xwing, 200, 200)
+info.setScore(1)
 game.onUpdateInterval(500, function () {
     boogey = sprites.create(img`
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -130,5 +131,5 @@ game.onUpdateInterval(500, function () {
 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
 `, SpriteKind.Enemy)
     boogey.setVelocity(-100, 0)
-    boogey.setPosition(180, Math.randomRange(8, 112))
+    boogey.setPosition(180, Math.randomRange(8, 111))
 })
